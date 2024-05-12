@@ -6,9 +6,13 @@ import sys
 import os
 import yaml
 import numpy as np
-
+from model_definition import build_model
+from utils import load_json
 from keras._tf_keras.keras import Model
 from keras._tf_keras.keras.models import load_model
+
+# Disable oneDNN custom operations
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 
 def train(model: Model, X_train: np.array, y_train: np.array,
           X_val: np.array, y_val: np.array, params: dict) -> Model:
@@ -47,19 +51,22 @@ def main():
         None
     """
     path = sys.argv[1]
+    params_file = sys.argv[2]
 
-    X_train = np.load(f"{path}/preprocess/X_train.npy")
-    y_train = np.load(f"{path}/preprocess/y_train.npy")
-    X_val = np.load(f"{path}/preprocess/X_val.npy")
-    y_val = np.load(f"{path}/preprocess/y_val.npy")
-    parampath = os.path.join("phishing-detection", "phishing_detection", "params.yaml")
-    with open(parampath ,encoding="UTF-8" ) as file:
+    X_train = np.load(os.path.join(path, "preprocess", "X_train.npy"))
+    y_train = np.load(os.path.join(path, "preprocess", "y_train.npy"))
+    X_val = np.load(os.path.join(path, "preprocess", "X_val.npy"))
+    y_val = np.load(os.path.join(path, "preprocess", "y_val.npy"))
+    char_index = load_json(os.path.join(path, "preprocess", "char_index.json"))
+
+    with open(params_file ,encoding="UTF-8" ) as file:
         params = yaml.safe_load(file)
-    model = load_model(f"{path}/model/initial_model.keras")
+
+    model = build_model(char_index, params)
 
     trained_model = train(model, X_train, y_train, X_val, y_val, params)
 
-    trained_model.save(f"{path}/model/trained_model.keras")
+    trained_model.save(os.path.join(path, "model", "trained_model.keras"))
 
 if __name__ == "__main__":
     main()

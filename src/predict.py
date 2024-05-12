@@ -2,6 +2,7 @@
 Provides functions to peform predictions.
 
 """
+import os
 import sys
 import numpy as np
 import seaborn as sns
@@ -10,6 +11,10 @@ from keras import Model
 from keras._tf_keras.keras.models import load_model
 from matplotlib import pyplot as plt
 from sklearn.metrics import classification_report, confusion_matrix,accuracy_score
+
+# Disable oneDNN custom operations
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+
 def predict_classes(model: Model, x_test: np.ndarray, threshold: float = 0.5) -> np.ndarray:
     """
     Predict class labels for samples in x_test.
@@ -90,16 +95,17 @@ def main():
     """
     path = sys.argv[1]
     # Load data from npy files
-    X_test = np.load(f"{path}/preprocess/X_test.npy")
-    y_test = np.load(f"{path}/preprocess/y_test.npy")
-    model = load_model(f"{path}/model/trained_model.keras")
+    X_test = np.load(os.path.join(path, "preprocess", "X_test.npy"))
+    y_test = np.load(os.path.join(path, "preprocess", "y_test.npy"))
+    model = load_model(os.path.join(path, "model", "trained_model.keras"))
+
 
     prediction = predict_classes(model, X_test)
     evaluation_results = evaluate_results(y_test, prediction)
-    utils.save_data_as_text(evaluation_results, f"{path}/results/results.txt")
+    utils.save_data_as_text(evaluation_results, os.path.join("reports", "results", "results.txt"))
 
     fig = plot_confusion_matrix(evaluation_results['confusion_matrix'])
-    fig.savefig(f"{path}/results/confusion_matrix.pdf")
+    fig.savefig(os.path.join("reports", "results", "confusion_matrix.pdf"))
 
 
 if __name__ == "__main__":
