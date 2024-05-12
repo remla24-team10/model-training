@@ -1,28 +1,11 @@
 stages:
-  prepare:
-    cmd: python ./phishing-detection/phishing_detection/get_data.py data
-    deps:
-      - phishing-detection/phishing_detection/get_data.py
-      - data/train.txt
-      - data/test.txt
-      - data/val.txt
-    outs:
-      - data/raw/X_train.txt
-      - data/raw/y_train.txt
-      - data/raw/X_val.txt
-      - data/raw/y_val.txt
-      - data/raw/X_test.txt
-      - data/raw/y_test.txt
   preprocess:
-    cmd : python ./phishing-detection/phishing_detection/preprocess.py data
+    cmd : python ./src/preprocess.py data
     deps:
-      - phishing-detection/phishing_detection/preprocess.py
-      - data/raw/X_train.txt
-      - data/raw/y_train.txt
-      - data/raw/X_val.txt
-      - data/raw/y_val.txt
-      - data/raw/X_test.txt
-      - data/raw/y_test.txt
+      - src/preprocess.py
+      - data/raw/train.txt
+      - data/raw/val.txt
+      - data/raw/test.txt
     outs:
       - data/preprocess/X_train.npy
       - data/preprocess/y_train.npy
@@ -33,26 +16,32 @@ stages:
       - data/preprocess/char_index.json
   train:
     cmd:
-      - python ./phishing-detection/phishing_detection/model_definition.py data
-      - python ./phishing-detection/phishing_detection/train.py data
+      - python ./src/train.py ./data ./src/params.yaml
     deps:
-      - phishing-detection/phishing_detection/model_definition.py
-      - phishing-detection/phishing_detection/train.py
+      - src/model_definition.py
+      - src/train.py
       - data/preprocess/X_train.npy
       - data/preprocess/y_train.npy
       - data/preprocess/X_val.npy
       - data/preprocess/y_val.npy
       - data/preprocess/char_index.json
     outs:
-      - data/model/initial_model.keras
-      - data/model/trained_model.keras
+      - models/initial_model.keras
+      - models/trained_model.keras
   test:
-    cmd: python ./phishing-detection/phishing_detection/predict.py data
+    cmd: python ./src/predict.py data
     deps:
-      - phishing-detection/phishing_detection/predict.py
-      - data/model/trained_model.keras
+      - src/predict.py
+      - models/trained_model.keras
       - data/preprocess/X_test.npy
       - data/preprocess/y_test.npy
     outs:
-      - data/results/results.txt
-      - data/results/confusion_matrix.pdf
+      - reports/results/results.txt
+      - reports/results/confusion_matrix.pdf
+      
+
+artifacts:
+  phishing-detector:
+    path: models/phishing-detector.keras
+    type: model
+    
