@@ -1,6 +1,6 @@
-data/test.txt
-data/train.txt
-data/val.txt
+data/raw/test.txt
+data/raw/train.txt
+data/raw/val.txt
 
 .dvc/config.local
 .dvc/tmp
