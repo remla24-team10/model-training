@@ -7,3 +7,5 @@
     url = https://dvc-remla.s3.amazonaws.com/dvc
 ['remote "gdrive"']
     url = gdrive://13Kk88ZJAhU16WcaSnSiHBtWO4CcrURVL
+    
+studio.token = dsat_2i8Sh6ta0qkeGcMxvym5atQycL3drhDYSA99JfvkjKDkkSGV
