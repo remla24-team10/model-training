@@ -1,4 +1,5 @@
-studio.token = dsat_2i8Sh6ta0qkeGcMxvym5atQycL3drhDYSA99JfvkjKDkkSGV
+[studio]
+token = dsat_2i8Sh6ta0qkeGcMxvym5atQycL3drhDYSA99JfvkjKDkkSGV
 [core]
     remote = gdrive
 ['remote "aws"']
