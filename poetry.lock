@@ -2833,13 +2833,13 @@ zookeeper = ["kazoo (>=2.8.0)"]
 
 [[package]]
 name = "lib-ml-remla10-2024"
-version = "0.0.2"
+version = "1.0.0"
 description = "Pre-processing logic for some ML work."
 optional = false
 python-versions = "<3.12,>=3.11"
 files = [
-    {file = "lib_ml_remla10_2024-0.0.2-py3-none-any.whl", hash = "sha256:b04f049c3fb76a2e7c4dcc1c0d220782e1fad138f7db91de325425a69a2773a4"},
-    {file = "lib_ml_remla10_2024-0.0.2.tar.gz", hash = "sha256:dc88ccb1006b69eaa31790b46eba93a704215779f7ebb9fa2027b5d29a23dab4"},
+    {file = "lib_ml_remla10_2024-1.0.0-py3-none-any.whl", hash = "sha256:54b8b371accd4e77dcb3d88e547b87a40da5de1c88ad88afab28245892272342"},
+    {file = "lib_ml_remla10_2024-1.0.0.tar.gz", hash = "sha256:9456105ec9a5319e5a3b2a525c24dce1259f0cae9ed5f0c874a65672199d2ae9"},
 ]
 
 [package.dependencies]
@@ -5901,4 +5901,4 @@ test = ["zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "890bc64fd4d22c0cb6a6dc60121c1620eea891ba19e7dea0c9aa0337c84e47c9"
+content-hash = "eec722bff8de28678882b566119b74598038fb389f7b9f829ef3aed7cd815c1e"
