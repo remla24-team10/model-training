@@ -59,14 +59,14 @@ def main():
     y_val = np.load(os.path.join(path, "preprocess", "y_val.npy"))
     char_index = load_json(os.path.join(path, "preprocess", "char_index.json"))
 
-    with open(params_file ,encoding="UTF-8" ) as file:
+    with open(params_file, "r") as file:
         params = yaml.safe_load(file)
 
-    model = build_model(char_index, params)
+    model = build_model(char_index, params['categories'])
 
     trained_model = train(model, X_train, y_train, X_val, y_val, params)
 
-    trained_model.save(os.path.join(path, "model", "trained_model.keras"))
+    trained_model.save(os.path.join("models", "trained_model.keras"))
 
 if __name__ == "__main__":
     main()

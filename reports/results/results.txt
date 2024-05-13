@@ -1,3 +1,0 @@
-classification_report
-confusion_matrix
-accuracy

@@ -12,14 +12,15 @@ from keras._tf_keras.keras.layers import Embedding, Conv1D, MaxPooling1D, Flatte
 # Disable oneDNN custom operations
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 
-def build_model(char_index: dict, params: dict, dropout_rate: float = 0.2) -> Model:
+def build_model(char_index: dict, categories: list[str], dropout_rate: float = 0.2) -> Model:
     """
     Build a model for the phishing detection task
     
     Args:
         char_index: A dictionary mapping characters to their index.
-        params: A dictionary containing the parameters for the model.
-    
+        categories: A list of categories to predict.
+        dropout_rate: The dropout rate.
+
     Returns:
         A Keras model.
 
@@ -56,6 +57,6 @@ def build_model(char_index: dict, params: dict, dropout_rate: float = 0.2) -> Mo
 
     model.add(Flatten())
 
-    model.add(Dense(len(params['categories'])-1, activation='sigmoid'))
+    model.add(Dense(len(categories)-1, activation='sigmoid'))
 
     return model

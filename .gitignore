@@ -6,7 +6,6 @@ data/val.txt
 .dvc/tmp
 .dvc/cache
 
-models/initial_model.keras
 models/trained_model.keras
 
 data/preprocess/X_train.npy
@@ -31,8 +30,8 @@ data/raw/y_val.txt
 data/raw/X_test.txt
 data/raw/y_test.txt
 
-data/results/results.txt
-data/results/confusion_matrix.pdf
+reports/results/results.txt
+reports/results/confusion_matrix.pdf
 
 
 # Byte-compiled / optimized / DLL files

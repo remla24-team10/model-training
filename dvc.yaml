@@ -26,7 +26,6 @@ stages:
       - data/preprocess/y_val.npy
       - data/preprocess/char_index.json
     outs:
-      - models/initial_model.keras
       - models/trained_model.keras
   test:
     cmd: python ./src/predict.py data
@@ -42,6 +41,6 @@ stages:
 
 artifacts:
   phishing-detector:
-    path: models/phishing-detector.keras
+    path: models/trained_model.keras
     type: model
     

@@ -98,8 +98,7 @@ stages:
       size: 2060448
   train:
     cmd:
-    - python ./phishing-detection/phishing_detection/model_definition.py data
-    - python ./phishing-detection/phishing_detection/train.py data
+    - python ./src/train.py ./data ./src/params.yaml
     deps:
     - path: data/preprocess/X_train.npy
       hash: md5
@@ -107,8 +106,8 @@ stages:
       size: 836619328
     - path: data/preprocess/X_val.npy
       hash: md5
-      md5: 22128e9681506e90a2b437d45da5f8cf
-      size: 412063328
+      md5: 6cf90ab489d52d04b2b739d1648378c9
+      size: 412064128
     - path: data/preprocess/char_index.json
       hash: md5
       md5: fe87b0a484b3b60b50fd58cd538aaaae
@@ -119,50 +118,46 @@ stages:
       size: 8366320
     - path: data/preprocess/y_val.npy
       hash: md5
-      md5: 1d5fa5d29393e97dbba3a5cd32813e14
-      size: 2060444
-    - path: phishing-detection/phishing_detection/model_definition.py
+      md5: b2b6fd1c6458b139988973e159e5fff1
+      size: 2060448
+    - path: src/model_definition.py
       hash: md5
-      md5: a9147652d192df0b0c96b81a17835a28
-      size: 2391
-    - path: phishing-detection/phishing_detection/train.py
+      md5: afc9df321c42ebf803632885c8d327b3
+      size: 1819
+    - path: src/train.py
       hash: md5
-      md5: de203b5cebd4d6fb83cd5dd841f5e822
-      size: 1827
+      md5: 361ae83755cf8b5c7fc86c9a1ca041cd
+      size: 2060
     outs:
-    - path: data/model/initial_model.keras
+    - path: models/trained_model.keras
       hash: md5
-      md5: 8309bed8a584bb33e377a1183c811a21
-      size: 49737
-    - path: data/model/trained_model.keras
-      hash: md5
-      md5: 2b91e95957947219e7cf6edf3b1493e3
+      md5: b83fe2d203e054e2a0b607bb6a366ed9
       size: 5472435
   test:
-    cmd: python ./phishing-detection/phishing_detection/predict.py data
+    cmd: python ./src/predict.py data
     deps:
-    - path: data/model/trained_model.keras
-      hash: md5
-      md5: 2b91e95957947219e7cf6edf3b1493e3
-      size: 5472435
     - path: data/preprocess/X_test.npy
       hash: md5
-      md5: 23fa98d19a833016d86142c36cecda27
-      size: 291358528
+      md5: 93675aba9e6e2c9b80277481652f0f7d
+      size: 291359328
     - path: data/preprocess/y_test.npy
       hash: md5
-      md5: 311ff57eefa708370ff251eabff39a65
-      size: 1456920
-    - path: phishing-detection/phishing_detection/predict.py
+      md5: f75fc025e787c7c33a7a8c50d3b901d0
+      size: 1456924
+    - path: models/trained_model.keras
       hash: md5
-      md5: 4ccca662abbfa46adaf5d758052f70db
-      size: 3148
+      md5: b83fe2d203e054e2a0b607bb6a366ed9
+      size: 5472435
+    - path: src/predict.py
+      hash: md5
+      md5: 6e0cfc09e7bae7a4be93b82cf3121897
+      size: 3324
     outs:
-    - path: data/results/confusion_matrix.pdf
+    - path: reports/results/confusion_matrix.pdf
       hash: md5
-      md5: 814e380c2f919555d2990c700f3d4537
-      size: 13666
-    - path: data/results/results.txt
+      md5: 53b19f430839f87deef884a8046cbdae
+      size: 14176
+    - path: reports/results/results.txt
       hash: md5
       md5: 4c24ed3cfccea4b4e08cc753e8a82f51
       size: 51

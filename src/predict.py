@@ -97,7 +97,7 @@ def main():
     # Load data from npy files
     X_test = np.load(os.path.join(path, "preprocess", "X_test.npy"))
     y_test = np.load(os.path.join(path, "preprocess", "y_test.npy"))
-    model = load_model(os.path.join(path, "model", "trained_model.keras"))
+    model = load_model(os.path.join("models", "trained_model.keras"))
 
 
     prediction = predict_classes(model, X_test)
