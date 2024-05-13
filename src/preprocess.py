@@ -8,6 +8,7 @@ import utils
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
 from lib_ml_remla import split_data, preprocess_data
+import pickle
 
 
 # Disable oneDNN custom operations
@@ -33,7 +34,7 @@ def main():
 
     raw_X_train, raw_y_train, raw_X_val, raw_y_val, raw_X_test, raw_y_test = split_data(train, test, val)
 
-    X_train, y_train, X_val, y_val, X_test, y_test, char_index = preprocess_data(
+    X_train, y_train, X_val, y_val, X_test, y_test, char_index, tokenizer, encoder = preprocess_data(
         raw_X_train, raw_y_train, raw_X_val, raw_y_val, raw_X_test, raw_y_test)
 
 
@@ -44,6 +45,10 @@ def main():
     np.save(os.path.join(path, "preprocess", "X_test.npy"), X_test)
     np.save(os.path.join(path, "preprocess", "y_test.npy"), y_test)
     utils.save_json(char_index, os.path.join(path, "preprocess", "char_index.json"))
+    with open(os.path.join("model", "tokenizer.pkl"), 'wb') as file:
+        pickle.dump(tokenizer, file)
+    with open(os.path.join("model", "encoder.pkl"), 'wb') as file:
+        pickle.dump(encoder, file)
 
 
 if __name__ == "__main__":
