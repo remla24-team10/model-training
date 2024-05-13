@@ -20,7 +20,7 @@ def save_data_as_text(data, file_path):
 
 def load_data_from_text(file_path):
     """
-    Load data from a text file.
+    Load data from a text file. Strips whitespace from each line.
 
     Args:
         file_path (str): Path to the input text file.
