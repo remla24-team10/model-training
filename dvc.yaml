@@ -43,4 +43,6 @@ artifacts:
   phishing-detector:
     path: models/trained_model.keras
     type: model
+    labels:
+      - phishing-detector
     
