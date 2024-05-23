@@ -5,7 +5,7 @@ In this assignment we will be transferring a small kaggle model to a professiona
 - poetry for dependency management.
 
 ### How to run
-To run this code you need to have poetry installed. 
+To run this code you need to have poetry and python3.11 installed. 
 You can install the packages by running the following commands:
 (this should be executed in the phishing-detection folder)
 
@@ -23,7 +23,7 @@ To retrieve the data and run the pipeline:
 
 To run the code quality metrics:
 (this should be executed in the phishing-detection folder)
-- ```pylint ./phishing_detection```
+- ```pylint ./src ./tests```
 - ```bandit ./ -r```
 
 The project will be restructured in the future such that there is a single root folder from which all scripts can be executed from.

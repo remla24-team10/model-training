@@ -25,7 +25,7 @@ def main():
     
     # Load data from text files
     train = utils.load_data_from_text(os.path.join(path, "raw", "train.txt"))
-    train = [line.strip() for line in train[1:]]
+    train = [line.strip() for line in train]
     test = utils.load_data_from_text(os.path.join(path, "raw", "test.txt"))
     test = [line.strip() for line in test]
     val = utils.load_data_from_text(os.path.join(path, "raw", "val.txt"))
@@ -45,9 +45,9 @@ def main():
     np.save(os.path.join(path, "preprocess", "X_test.npy"), X_test)
     np.save(os.path.join(path, "preprocess", "y_test.npy"), y_test)
     utils.save_json(char_index, os.path.join(path, "preprocess", "char_index.json"))
-    with open(os.path.join("model", "tokenizer.pkl"), 'wb') as file:
+    with open(os.path.join("models", "tokenizer.pkl"), 'wb') as file:
         pickle.dump(tokenizer, file)
-    with open(os.path.join("model", "encoder.pkl"), 'wb') as file:
+    with open(os.path.join("models", "encoder.pkl"), 'wb') as file:
         pickle.dump(encoder, file)
 
 
