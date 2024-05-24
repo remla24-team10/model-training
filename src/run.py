@@ -17,6 +17,7 @@ from model_definition import build_model
 from predict import evaluate_results, plot_confusion_matrix, predict_classes
 from lib_ml_remla import split_data, preprocess_data
 from utils import load_data_from_text
+from train import train as train_function
 
 # Disable oneDNN custom operations
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
@@ -36,32 +37,39 @@ def run(params: dict, data_path: str) -> None:
         params = yaml.safe_load(path)
         run(params)
     """
-    train = load_data_from_text(os.path.join(data_path, "train.txt"))
-    test = load_data_from_text(os.path.join(data_path, "test.txt"))
-    val = load_data_from_text(os.path.join(data_path, "val.txt"))
+    path = os.path.join(os.path.dirname(__file__), "../", data_path)
+    train = load_data_from_text(os.path.join(path, "train.txt"))
+    test = load_data_from_text(os.path.join(path, "test.txt"))
+    val = load_data_from_text(os.path.join(path, "val.txt"))
 
     # Split data
+    print("Splitting the data")
     raw_X_train, raw_y_train, raw_X_val, raw_y_val, raw_X_test, raw_y_test = split_data(train, test, val)
     # Preprocess data
-    X_train, y_train, X_val, y_val, X_test, y_test, char_index = preprocess_data(
+    print("Preprocessing the data")
+    X_train, y_train, X_val, y_val, X_test, y_test, char_index, _, _ = preprocess_data(
         raw_X_train, raw_y_train, raw_X_val, raw_y_val, raw_X_test, raw_y_test)
-
-    # Create model
-    model = build_model(char_index, params)
+    # Build model
+    print("Building the model")
+    model = build_model(char_index, params['categories'])
 
     # Train model
-    model = train(model, X_train, y_train, X_val, y_val, params)
+    print("Training the model")
+    model = train_function(model, X_train, y_train, X_val, y_val, params)
 
     # Evaluate model
+    print("Evaluating the model")
     prediction = predict_classes(model, X_test)
     evaluation_results = evaluate_results(y_test, prediction)
 
     # plot confusion matrix
+    print("Plotting confusion matrix")
     plot_confusion_matrix(evaluation_results['confusion_matrix']) #save fig?
  
 
 def main():
-    with open(os.path.join("src","params.yaml")) as file:
+    file_path = os.path.join(os.path.dirname(__file__),"params.yaml")
+    with open(file_path) as file:
         params = yaml.safe_load(file)
     data_path = params["dataset_dir"]
     run(params, data_path)
