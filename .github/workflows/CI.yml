@@ -45,10 +45,14 @@ jobs:
       run: pipx install poetry || pip install poetry
     - name: Install dependencies
       run: poetry install
+    - name: Create and set permissions for test directory
+      run: |
+        mkdir -p ./tests
+        chmod 777 ./tests
     - name: Run tests with coverage
       run: |
         mkdir -p tests
-        poetry run pytest ./tests/ --cov=src --cov-report=xml:/tests/unittests.xml -m "unittest"
+        poetry run pytest ./tests/ --cov=src --cov-report=xml:./tests/unittests.xml -m "unittest"
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
       with:
@@ -88,6 +92,10 @@ jobs:
         python-version: '3.11'
     - run: pipx install poetry || pip install poetry
     - run: poetry install
+    - name: Create and set permissions for test directory
+      run: |
+        mkdir -p ./tests
+        chmod 777 ./tests
     - name: Run integration tests
       run: |
         mkdir -p tests
