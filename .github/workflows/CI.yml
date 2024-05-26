@@ -103,5 +103,5 @@ jobs:
         token: ${{secrets.CODECOV_TOKEN}}
         fail_ci_if_error: true
         flags: integration
-        file: /tests/integration_tests.xml
+        file: ./tests/integration_tests.xml
         dry_run: true
