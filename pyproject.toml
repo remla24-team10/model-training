@@ -29,6 +29,7 @@ dvc-s3 = "3.2.0"
 dvc-gdrive = "3.0.1"
 gto = "^1.7.1"
 lib-ml-REMLA10-2024 = "^1.0.0"
+pytest-cov = "^5.0.0"
 
 [build-system]
 requires = ["poetry-core"]
