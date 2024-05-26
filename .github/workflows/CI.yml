@@ -94,7 +94,6 @@ jobs:
     - run: poetry install
     - name: Create and set permissions for test directory
       run: |
-        mkdir -p ./tests
         chmod 777 ./tests
     - name: Run integration tests
       run: |
