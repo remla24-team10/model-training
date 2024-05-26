@@ -47,14 +47,14 @@ jobs:
       run: poetry install
     - name: Run tests with coverage
       run: |
-        poetry run pytest --cov=src --cov-report=xml:/tests/unittests.xml -m "unittest"
+        poetry run pytest ./tests/ --cov=src --cov-report=xml:/tests/unittests.xml -m "unittest"
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
       with:
         token: ${{secrets.CODECOV_TOKEN}}
         fail_ci_if_error: true
         flags: unittests
-        file: /tests/unittests.xml
+        file: ./tests/unittests.xml
         dry_run: true
 
   integration_test:
@@ -89,7 +89,7 @@ jobs:
     - run: poetry install
     - name: Run integration tests
       run: |
-        poetry run pytest --cov=src --cov-report=xml:/tests/integration_tests.xml -m "integration_test"
+        poetry run pytest ./tests/ --cov=src --cov-report=xml:./tests/integration_tests.xml -m "integration_test"
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
       with:
