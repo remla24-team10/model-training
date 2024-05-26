@@ -101,6 +101,7 @@ jobs:
         mkdir -p tests
         poetry run pytest ./tests/ --cov=src --cov-report=xml:./tests/integration_tests.xml -m "integration_test"
     - name: Upload coverage to Codecov
+      if: success() || failure()
       uses: codecov/codecov-action@v4
       with:
         token: ${{secrets.CODECOV_TOKEN}}
