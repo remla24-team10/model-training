@@ -47,7 +47,7 @@ jobs:
       run: poetry install
     - name: Run tests with coverage
       run: |
-        poetry run pytest --cov=src --cov-report=xml:/tests/unittests.xml
+        poetry run pytest --cov=src --cov-report=xml:/tests/unittests.xml -m "unittest"
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
       with:
@@ -89,7 +89,7 @@ jobs:
     - run: poetry install
     - name: Run integration tests
       run: |
-        poetry run pytest --cov=src --cov-report=xml:/tests/integration_tests.xml
+        poetry run pytest --cov=src --cov-report=xml:/tests/integration_tests.xml -m "integration_test"
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
       with:
