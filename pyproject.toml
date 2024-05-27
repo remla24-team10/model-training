@@ -33,6 +33,7 @@ gto = "^1.7.1"
 lib-ml-REMLA10-2024 = "^1.0.0"
 pytest = "^8.2.1"
 utils = "^1.0.2"
+pytest-cov = "^5.0.0"
 
 [build-system]
 requires = ["poetry-core"]
