@@ -6,7 +6,7 @@ categories:
 char_index: null
 dataset_dir: data/raw 
 embedding_dimension: 50
-epoch: 3
+epoch: 20
 loss_function: binary_crossentropy
 optimizer: adam
 sequence_length: 200
