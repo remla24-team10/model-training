@@ -1,6 +1,6 @@
 # fake test assert True
 import pytest
 
-@pytest.mark.unit_test
+@pytest.mark.unittest
 def test_fake():
     assert True
