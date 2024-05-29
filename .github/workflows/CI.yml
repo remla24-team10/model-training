@@ -48,9 +48,10 @@ jobs:
     - name: Create and set permissions for test directory
       run: |
         chmod 777 ./tests
+        chmod 777 ./tests-display
     - name: Run tests with coverage
       run: |
-        poetry run pytest ./tests/ --cov=src --cov-report=xml:./tests/unittests.xml -m "unittest"
+        poetry run pytest ./tests/ --cov=src --cov-report=xml:./tests/unittests.xml -m "unittest" --junit-xml tests-display/pytest.xml
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
       with:
@@ -60,13 +61,13 @@ jobs:
         flags: unittests
         file: ./tests/unittests.xml
         dry_run: false
-    - name: Publish Test Results
-      uses: EnricoMi/publish-unit-test-result-action@v2
-      if: always()
-      with:
-        files: |
-          ./tests/unittests.xml
-
+    - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Test Results (Python ${{ matrix.name }})
+          path: test-results/${{ matrix.name }}/pytest.xml
+          
   integration_test:
     name: Integration Tests
     if: github.event_name == 'pull_request'
