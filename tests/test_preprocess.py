@@ -37,7 +37,7 @@ def test_char_index():
         char_index = json.load(file)
     assert len(char_index) == 53
     
-@pytest.mark.slow
+@pytest.mark.manual
 def test_real_data():
     sys.argv = ["", "data"]
     preprocess.main()

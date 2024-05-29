@@ -7,7 +7,7 @@ import numpy as np
 import pytest
 
 
-@pytest.mark.fast
+@pytest.mark.manual
 def test_uniqueness():
     """
     Test the uniqueness of data samples in X_train, X_test, and X_val arrays.

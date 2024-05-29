@@ -22,7 +22,13 @@ You can install the packages by running the following commands:
 To retrieve the data and run the pipeline:
 (this should be executed in the remla-group10 folder)
 - ```dvc fetch```
-- ```dvc pull``` (may not work)
+- ```dvc pull``` (may not work, in which case use the workaround below)
+- ```dvc repro```
+
+In case dvc pull does not work, fetch the 3 data files manually and run dvc repro:
+- ```dvc fetch data/raw/train.txt```
+- ```dvc fetch data/raw/test.txt```
+- ```dvc fetch data/raw/val.txt```
 - ```dvc repro```
 
 To run the code quality metrics:
@@ -34,5 +40,6 @@ The project will be restructured in the future such that there is a single root 
 
 ### How to run the tests 
 After entering the virtual environment run: ```pytest```.
-- ```pytest -m fast``` for quick tests.
-- ```pytest -m slow``` for slow tests. 
+- ```pytest -m fast``` for quick tests, these are ran automatically in the CI pipeline and do not require dvc pull.
+- ```pytest -s -m manual``` for tests that require all data which can be downloaded through dvc pull or dvc repro.
+- ```pytest -s -m training``` for tests that require training on top of dvc pull or dvc repro, this is expected to take 30 minutes.

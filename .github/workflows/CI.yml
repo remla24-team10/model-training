@@ -52,7 +52,7 @@ jobs:
         chmod 777 tests-results/unit-tests/${{ matrix.name }}
     - name: Run tests with coverage
       run: |
-        poetry run pytest ./tests/ --cov=src --cov-report=xml:./tests/unittests.xml -m "unittest" --junit-xml tests-results/unit-tests/${{ matrix.name }}/pytest.xml
+        poetry run pytest ./tests/ --cov=src --cov-report=xml:./tests/unittests.xml -m "fast" --junit-xml tests-results/unit-tests/${{ matrix.name }}/pytest.xml
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
       with:
@@ -108,7 +108,7 @@ jobs:
         chmod 777 tests-results/integration-tests/${{ matrix.name }}
     - name: Run integration tests
       run: |
-        poetry run pytest ./tests/ --cov=src --cov-report=xml:./tests/integration_tests.xml -m "integration_test" --junit-xml tests-results/integration-tests/${{ matrix.name }}/pytest.xml
+        poetry run pytest ./tests/ --cov=src --cov-report=xml:./tests/integration_tests.xml -m "fast" --junit-xml tests-results/integration-tests/${{ matrix.name }}/pytest.xml
     - name: Upload coverage to Codecov
       if: success() || failure()
       uses: codecov/codecov-action@v4
