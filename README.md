@@ -27,3 +27,8 @@ To run the code quality metrics:
 - ```bandit ./ -r```
 
 The project will be restructured in the future such that there is a single root folder from which all scripts can be executed from.
+
+### How to run the tests 
+After entering the virtual environment run: ```pytest```.
+- ```pytest -m fast``` for quick tests.
+- ```pytest -m slow``` for slow tests. 
