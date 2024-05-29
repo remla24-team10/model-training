@@ -61,11 +61,11 @@ jobs:
         file: ./tests/unittests.xml
         dry_run: false
     - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
-        with:
-          files: |
-            ./tests/unittests.xml
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        files: |
+          ./tests/unittests.xml
 
   integration_test:
     name: Integration Tests
