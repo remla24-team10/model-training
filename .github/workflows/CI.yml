@@ -48,8 +48,8 @@ jobs:
     - name: Create and set permissions for test directory
       run: |
         chmod 777 ./tests
-        mkdir ./test-results
-        chmod 777 ./tests-results
+        mkdir -p tests-results/${{ matrix.name }}
+        chmod 777 tests-results/${{ matrix.name }}
     - name: Run tests with coverage
       run: |
         poetry run pytest ./tests/ --cov=src --cov-report=xml:./tests/unittests.xml -m "unittest" --junit-xml tests-display/pytest.xml
@@ -67,7 +67,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Test Results (Python ${{ matrix.name }})
-        path: test-results/${{ matrix.name }}/pytest.xml
+        path: tests-results/${{ matrix.name }}/pytest.xml
 
   integration_test:
     name: Integration Tests
