@@ -47,7 +47,7 @@ def main():
     utils.save_json(char_index, os.path.join(path, "preprocess", "char_index.json"))
     
     if not os.path.exists(os.path.join(path, "model")):
-        os.makedirs("model")
+        os.makedirs(os.path.join(path, "model"))
     
     with open(os.path.join(path, "model", "tokenizer.pkl"), 'wb') as file:
         pickle.dump(tokenizer, file)
