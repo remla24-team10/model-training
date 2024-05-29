@@ -56,6 +56,7 @@ jobs:
       with:
         token: ${{secrets.CODECOV_TOKEN}}
         fail_ci_if_error: true
+        slug: remla24-team10/model-training
         flags: unittests
         file: ./tests/unittests.xml
         dry_run: true
