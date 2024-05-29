@@ -68,6 +68,7 @@ jobs:
       with:
         name: Test Results (Python ${{ matrix.name }})
         path: tests-results/unit-tests/${{ matrix.name }}/pytest.xml
+        overwrite: true
 
   integration_test:
     name: Integration Tests
@@ -122,6 +123,7 @@ jobs:
       with:
         name: Test Results (Python ${{ matrix.name }})
         path: tests-results/integration-tests/${{ matrix.name }}/pytest.xml
+        overwrite: true
   
   publish-test-results:
     name: "Publish Tests Results"
