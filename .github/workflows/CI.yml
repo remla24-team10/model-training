@@ -48,7 +48,8 @@ jobs:
     - name: Create and set permissions for test directory
       run: |
         chmod 777 ./tests
-        chmod 777 ./tests-display
+        mkdir ./test-results
+        chmod 777 ./tests-results
     - name: Run tests with coverage
       run: |
         poetry run pytest ./tests/ --cov=src --cov-report=xml:./tests/unittests.xml -m "unittest" --junit-xml tests-display/pytest.xml
