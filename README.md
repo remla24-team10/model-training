@@ -1,4 +1,8 @@
 # REMLA project for group10
+
+![Badge](https://gist.githubusercontent.com/Remi-Lejeune/6ff1588ffc7e3f2e26de1428ea3bde64/raw/90431bb13596c3bc38edae2d06b2ab3856a81efc/badge.svg)
+
+
 In this assignment we will be transferring a small kaggle model to a professional development environment. We will be using the following tools:
 - dvc for data version control and machine learning reproducibility.
 - git for version control.
