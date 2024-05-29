@@ -19,15 +19,15 @@ jobs:
           - name: 'check'
             python: '3.11'
             os: 'ubuntu-latest'
-          - name: 'py311 (ubuntu)'
+          - name: 'py311_ubuntu'
             python: '3.11'
             python_arch: 'x64'
             os: 'ubuntu-latest'
-          - name: 'py311 (windows)'
+          - name: 'py311_windows'
             python: '3.11'
             python_arch: 'x64'
             os: 'windows-latest'
-          - name: 'py311 (macos)'
+          - name: 'py311_macos'
             python: '3.11'
             python_arch: 'arm64'
             os: 'macos-latest'
@@ -48,18 +48,28 @@ jobs:
     - name: Create and set permissions for test directory
       run: |
         chmod 777 ./tests
+        mkdir -p tests-results/unit-tests/${{ matrix.name }}
+        chmod 777 tests-results/unit-tests/${{ matrix.name }}
     - name: Run tests with coverage
       run: |
-        poetry run pytest ./tests/ --cov=src --cov-report=xml:./tests/unittests.xml -m "unittest"
+        poetry run pytest ./tests/ --cov=src --cov-report=xml:./tests/unittests.xml -m "fast" --junit-xml tests-results/unit-tests/${{ matrix.name }}/pytest.xml
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
       with:
         token: ${{secrets.CODECOV_TOKEN}}
+        # slug: remla24-team10/model-training
         fail_ci_if_error: true
         slug: remla24-team10/model-training
         flags: unittests
         file: ./tests/unittests.xml
-        dry_run: true
+        dry_run: false
+    - name: Upload Test Results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: Test Results (Python ${{ matrix.name }})
+        path: tests-results/unit-tests/${{ matrix.name }}/pytest.xml
+        overwrite: true
 
   integration_test:
     name: Integration Tests
@@ -72,15 +82,15 @@ jobs:
           - name: 'check'
             python: '3.11'
             os: 'ubuntu-latest'
-          - name: 'py311 (ubuntu)'
+          - name: 'py311_ubuntu'
             python: '3.11'
             python_arch: 'x64'
             os: 'ubuntu-latest'
-          - name: 'py311 (windows)'
+          - name: 'py311_windows'
             python: '3.11'
             python_arch: 'x64'
             os: 'windows-latest'
-          - name: 'py311 (macos)'
+          - name: 'py311_macos'
             python: '3.11'
             python_arch: 'arm64'
             os: 'macos-latest'
@@ -94,9 +104,11 @@ jobs:
     - name: Create and set permissions for test directory
       run: |
         chmod 777 ./tests
+        mkdir -p tests-results/integration-tests/${{ matrix.name }}
+        chmod 777 tests-results/integration-tests/${{ matrix.name }}
     - name: Run integration tests
       run: |
-        poetry run pytest ./tests/ --cov=src --cov-report=xml:./tests/integration_tests.xml -m "integration_test"
+        poetry run pytest ./tests/ --cov=src --cov-report=xml:./tests/integration_tests.xml -m "fast" --junit-xml tests-results/integration-tests/${{ matrix.name }}/pytest.xml
     - name: Upload coverage to Codecov
       if: success() || failure()
       uses: codecov/codecov-action@v4
@@ -106,4 +118,68 @@ jobs:
         fail_ci_if_error: true
         flags: integration
         file: ./tests/integration_tests.xml
-        dry_run: true
+        dry_run: false
+    - name: Upload Test Results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: Test Results (Python ${{ matrix.name }})
+        path: tests-results/integration-tests/${{ matrix.name }}/pytest.xml
+        overwrite: true
+  
+  publish-test-results:
+    name: "Publish Tests Results"
+    needs: [test, integration_test]
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+
+      # only needed unless run with comment_mode: off
+      pull-requests: write
+    if: always()
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        id: tests-results
+        if: always()
+        with:
+          files: "artifacts/**/*.xml"
+
+      - name: Set badge color
+        shell: bash
+        run: |
+          case ${{ fromJSON( steps.tests-results.outputs.json ).conclusion }} in
+            success)
+              echo "BADGE_COLOR=31c653" >> $GITHUB_ENV
+              ;;
+            failure)
+              echo "BADGE_COLOR=800000" >> $GITHUB_ENV
+              ;;
+            neutral)
+              echo "BADGE_COLOR=696969" >> $GITHUB_ENV
+              ;;
+          esac
+
+      - name: Create badge
+        uses: emibcn/badge-action@808173dd03e2f30c980d03ee49e181626088eee8
+        with:
+          label: Tests
+          status: '${{ fromJSON( steps.tests-results.outputs.json ).formatted.stats.tests }} tests, ${{ fromJSON( steps.tests-results.outputs.json ).formatted.stats.runs }} runs: ${{ fromJSON( steps.tests-results.outputs.json ).conclusion }}'
+          color: ${{ env.BADGE_COLOR }}
+          path: badge.svg
+
+      - name: Upload badge to Gist
+        # Upload only for master branch (I mean main branch (dont cancel me pls))
+        if: >
+          github.event_name == 'workflow_run' && github.event.workflow_run.head_branch == 'main' ||
+          github.event_name != 'workflow_run' && github.ref == 'refs/heads/main'
+        uses: andymckay/append-gist-action@6e8d64427fe47cbacf4ab6b890411f1d67c07f3e
+        with:
+          token: ${{ secrets.GIST_TOKEN }}
+          gistURL: https://gist.github.com/Remi-Lejeune/6ff1588ffc7e3f2e26de1428ea3bde64
+          file: badge.svg

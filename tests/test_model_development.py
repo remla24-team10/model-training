@@ -14,12 +14,10 @@ from src.utils import load_json, load_data_from_text
 from src.model_definition import build_model
 from lib_ml_remla import split_data
 
-@pytest.mark.integration_test
+@pytest.mark.manual
 def test_slices():
 
-    print("HELLO WORLD")
     path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-    
     
     model = tf.keras.models.load_model(os.path.join(path, "models", "trained_model.keras"))
 
@@ -51,8 +49,8 @@ def test_slices():
     assert (http_results['accuracy'] > 0.9)
     assert (https_results['accuracy'] > 0.9)
     assert ((https_results['accuracy'] - http_results['accuracy']) < 0.05)
-    
-@pytest.mark.integration_test
+        
+@pytest.mark.training
 def test_non_determinism():
     path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
     with open(os.path.join(path, "src", "params.yaml"), 'r') as file:

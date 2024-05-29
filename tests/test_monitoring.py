@@ -13,7 +13,7 @@ from src.utils import load_json
 from src.model_definition import build_model
 
 
-@pytest.mark.integration_test
+@pytest.mark.training
 def test_memory_usage_model():
     process = psutil.Process(os.getpid())
     
