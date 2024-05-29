@@ -62,12 +62,12 @@ jobs:
         file: ./tests/unittests.xml
         dry_run: false
     - name: Upload Test Results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Test Results (Python ${{ matrix.name }})
-          path: test-results/${{ matrix.name }}/pytest.xml
-          
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: Test Results (Python ${{ matrix.name }})
+        path: test-results/${{ matrix.name }}/pytest.xml
+
   integration_test:
     name: Integration Tests
     if: github.event_name == 'pull_request'
