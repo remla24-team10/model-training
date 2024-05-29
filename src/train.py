@@ -67,6 +67,6 @@ def main():
     trained_model = train(model, X_train, y_train, X_val, y_val, params)
 
     trained_model.save(os.path.join("models", "trained_model.keras"))
-
+ 
 if __name__ == "__main__":
     main()
