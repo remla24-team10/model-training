@@ -45,9 +45,9 @@ def main():
     np.save(os.path.join(path, "preprocess", "X_test.npy"), X_test)
     np.save(os.path.join(path, "preprocess", "y_test.npy"), y_test)
     utils.save_json(char_index, os.path.join(path, "preprocess", "char_index.json"))
-    with open(os.path.join("models", "tokenizer.pkl"), 'wb') as file:
+    with open(os.path.join(path, "model", "tokenizer.pkl"), 'wb') as file:
         pickle.dump(tokenizer, file)
-    with open(os.path.join("models", "encoder.pkl"), 'wb') as file:
+    with open(os.path.join(path, "model", "encoder.pkl"), 'wb') as file:
         pickle.dump(encoder, file)
 
 
