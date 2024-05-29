@@ -19,15 +19,15 @@ jobs:
           - name: 'check'
             python: '3.11'
             os: 'ubuntu-latest'
-          - name: 'py311 (ubuntu)'
+          - name: 'py311_(ubuntu)'
             python: '3.11'
             python_arch: 'x64'
             os: 'ubuntu-latest'
-          - name: 'py311 (windows)'
+          - name: 'py311_(windows)'
             python: '3.11'
             python_arch: 'x64'
             os: 'windows-latest'
-          - name: 'py311 (macos)'
+          - name: 'py311_(macos)'
             python: '3.11'
             python_arch: 'arm64'
             os: 'macos-latest'
@@ -52,7 +52,7 @@ jobs:
         chmod 777 tests-results/${{ matrix.name }}
     - name: Run tests with coverage
       run: |
-        poetry run pytest ./tests/ --cov=src --cov-report=xml:./tests/unittests.xml -m "unittest" --junit-xml tests-display/pytest.xml
+        poetry run pytest ./tests/ --cov=src --cov-report=xml:./tests/unittests.xml -m "unittest" --junit-xml tests-results/${{ matrix.name }}/pytest.xml
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
       with:
