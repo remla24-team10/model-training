@@ -80,15 +80,15 @@ jobs:
           - name: 'check'
             python: '3.11'
             os: 'ubuntu-latest'
-          - name: 'py311 (ubuntu)'
+          - name: 'py311_ubuntu'
             python: '3.11'
             python_arch: 'x64'
             os: 'ubuntu-latest'
-          - name: 'py311 (windows)'
+          - name: 'py311_windows'
             python: '3.11'
             python_arch: 'x64'
             os: 'windows-latest'
-          - name: 'py311 (macos)'
+          - name: 'py311_macos'
             python: '3.11'
             python_arch: 'arm64'
             os: 'macos-latest'
@@ -112,7 +112,6 @@ jobs:
       uses: codecov/codecov-action@v4
       with:
         token: ${{secrets.CODECOV_TOKEN}}
-        slug: remla24-team10/model-training
         fail_ci_if_error: true
         flags: integration
         file: ./tests/integration_tests.xml
