@@ -61,8 +61,8 @@ stages:
       size: 46258330
     - path: src/preprocess.py
       hash: md5
-      md5: 9ff82270930a724c8ef8c17789038a22
-      size: 1658
+      md5: 9861bf90ca946f87eedaf5dd269becef
+      size: 1973
     outs:
     - path: data/preprocess/X_test.npy
       hash: md5
@@ -70,8 +70,8 @@ stages:
       size: 291359328
     - path: data/preprocess/X_train.npy
       hash: md5
-      md5: d81af1c35a77cdeac4d8ccee76cc939e
-      size: 836619328
+      md5: 5058e2a7bb81b20eb684304f5c4d149a
+      size: 836620128
     - path: data/preprocess/X_val.npy
       hash: md5
       md5: 6cf90ab489d52d04b2b739d1648378c9
@@ -86,24 +86,24 @@ stages:
           version_id: 'null'
     - path: data/preprocess/y_test.npy
       hash: md5
-      md5: f75fc025e787c7c33a7a8c50d3b901d0
-      size: 1456924
+      md5: 2e2044626c9afab7c7d378dc3814ba8a
+      size: 2913720
     - path: data/preprocess/y_train.npy
       hash: md5
-      md5: 9b660634af0db95a6e2932208bc73b91
-      size: 8366320
+      md5: 15977b4322996ff6d06b177debad2ebc
+      size: 8366328
     - path: data/preprocess/y_val.npy
       hash: md5
-      md5: b2b6fd1c6458b139988973e159e5fff1
-      size: 2060448
+      md5: e024823c3485bb493e855fbfdd4f452e
+      size: 4120768
   train:
     cmd:
     - python ./src/train.py ./data ./src/params.yaml
     deps:
     - path: data/preprocess/X_train.npy
       hash: md5
-      md5: d81af1c35a77cdeac4d8ccee76cc939e
-      size: 836619328
+      md5: 5058e2a7bb81b20eb684304f5c4d149a
+      size: 836620128
     - path: data/preprocess/X_val.npy
       hash: md5
       md5: 6cf90ab489d52d04b2b739d1648378c9
@@ -114,24 +114,24 @@ stages:
       size: 639
     - path: data/preprocess/y_train.npy
       hash: md5
-      md5: 9b660634af0db95a6e2932208bc73b91
-      size: 8366320
+      md5: 15977b4322996ff6d06b177debad2ebc
+      size: 8366328
     - path: data/preprocess/y_val.npy
       hash: md5
-      md5: b2b6fd1c6458b139988973e159e5fff1
-      size: 2060448
+      md5: e024823c3485bb493e855fbfdd4f452e
+      size: 4120768
     - path: src/model_definition.py
       hash: md5
-      md5: afc9df321c42ebf803632885c8d327b3
-      size: 1819
+      md5: 98a94fe443a0712434504e061bc426c7
+      size: 1757
     - path: src/train.py
       hash: md5
-      md5: 361ae83755cf8b5c7fc86c9a1ca041cd
-      size: 2060
+      md5: 63fb711be990018480cff39316a37f89
+      size: 2024
     outs:
     - path: models/trained_model.keras
       hash: md5
-      md5: b83fe2d203e054e2a0b607bb6a366ed9
+      md5: 8fecc00c9cc67d54eccc88aa5d127ca1
       size: 5472435
   test:
     cmd: python ./src/predict.py data
@@ -142,22 +142,22 @@ stages:
       size: 291359328
     - path: data/preprocess/y_test.npy
       hash: md5
-      md5: f75fc025e787c7c33a7a8c50d3b901d0
-      size: 1456924
+      md5: 2e2044626c9afab7c7d378dc3814ba8a
+      size: 2913720
     - path: models/trained_model.keras
       hash: md5
-      md5: b83fe2d203e054e2a0b607bb6a366ed9
+      md5: 8fecc00c9cc67d54eccc88aa5d127ca1
       size: 5472435
     - path: src/predict.py
       hash: md5
-      md5: 6e0cfc09e7bae7a4be93b82cf3121897
-      size: 3324
+      md5: c33dc5dd8df1cc3a7b8a3a60c71d53c5
+      size: 4009
     outs:
     - path: reports/results/confusion_matrix.pdf
       hash: md5
-      md5: 53b19f430839f87deef884a8046cbdae
-      size: 14176
-    - path: reports/results/results.txt
+      md5: 8c575609eb77bdeb724c6c201d0fa358
+      size: 13744
+    - path: reports/results/results.json
       hash: md5
-      md5: 4c24ed3cfccea4b4e08cc753e8a82f51
-      size: 51
+      md5: 38e36ffe9f8bf7ecf02871feb15d4edb
+      size: 706

@@ -4,6 +4,7 @@ Provides functions to peform predictions.
 """
 import os
 import sys
+import json
 import numpy as np
 import seaborn as sns
 import utils
@@ -51,7 +52,7 @@ def evaluate_results(y_test: np.ndarray, y_pred_binary: np.ndarray) -> dict:
     y_test=y_test.reshape(-1,1)
 
     # Calculate classification report
-    report = classification_report(y_test, y_pred_binary)
+    report = classification_report(y_test, y_pred_binary, output_dict=True)
     print('Classification Report:')
     print(report)
 
@@ -102,8 +103,10 @@ def main():
 
     prediction = predict_classes(model, X_test)
     evaluation_results = evaluate_results(y_test, prediction)
-    utils.save_data_as_text(evaluation_results, os.path.join("reports", "results", "results.txt"))
-
+    # dump evaluation results as a json file
+    json_object = json.dumps(evaluation_results['classification_report'], indent=4)
+    with open(os.path.join("reports", "results", "results.json"), 'w') as f:
+        f.write(json_object)
     fig = plot_confusion_matrix(evaluation_results['confusion_matrix'])
     fig.savefig(os.path.join("reports", "results", "confusion_matrix.pdf"))
 

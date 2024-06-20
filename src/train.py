@@ -45,7 +45,7 @@ def train(model: Model, X_train: np.array, y_train: np.array,
 
 def main():
     """
-    Train and save model.
+    Train and saves the model to models/trained_model.keras.
 
     Returns:
         None
