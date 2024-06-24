@@ -2,10 +2,11 @@
 Provides functions to save and load data.
 
 """
+
 import json
 
 
-def save_data_as_text(data, file_path):
+def save_data_as_text(data: list[str], file_path: str) -> None:
     """
     Save data to a text file.
 
@@ -18,7 +19,7 @@ def save_data_as_text(data, file_path):
             file.write(f"{item}\n")
 
 
-def load_data_from_text(file_path):
+def load_data_from_text(file_path: str) -> list[str]:
     """
     Load data from a text file. Strips whitespace from each line.
 
@@ -33,8 +34,7 @@ def load_data_from_text(file_path):
     return data
 
 
-
-def save_json(char_index, file_path):
+def save_json(char_index: dict, file_path: str) -> None:
     """
     Save the char_index dictionary to a JSON file.
 
@@ -42,10 +42,11 @@ def save_json(char_index, file_path):
         char_index (dict): Dictionary containing character-to-index mapping.
         file_path (str): Path to the output JSON file.
     """
-    with open(file_path, 'w', encoding="UTF-8") as f:
+    with open(file_path, "w", encoding="UTF-8") as f:
         json.dump(char_index, f)
 
-def load_json(file_path):
+
+def load_json(file_path: str) -> dict[str, int]:
     """
     Load the char_index dictionary from a JSON file.
 
@@ -55,5 +56,5 @@ def load_json(file_path):
     Returns:
         dict: Loaded char_index dictionary.
     """
-    with open(file_path, 'r', encoding="UTF-8") as f:
+    with open(file_path, "r", encoding="UTF-8") as f:
         return json.load(f)

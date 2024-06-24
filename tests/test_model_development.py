@@ -1,18 +1,21 @@
-import pytest
-import numpy as np
 import os
-import sys
-import yaml
-import tensorflow as tf
 import random
+import sys
+
+import numpy as np
+import pytest
+import tensorflow as tf
+import yaml
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..' '/src')))
 
-from src.train import train
-from src.predict import predict_classes, evaluate_results
-from src.utils import load_json, load_data_from_text
-from src.model_definition import build_model
 from lib_ml_remla import split_data
+
+from src.model_definition import build_model
+from src.predict import evaluate_results, predict_classes
+from src.train import train
+from src.utility_functions import load_data_from_text, load_json
+
 
 @pytest.mark.manual
 def test_slices():

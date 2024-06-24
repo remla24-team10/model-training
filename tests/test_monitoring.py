@@ -1,16 +1,17 @@
-import pytest
-import numpy as np
 import os
 import sys
-import yaml
+
+import numpy as np
 import psutil
+import pytest
 import tensorflow as tf
+import yaml
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..' '/src')))
 
-from src.train import train
-from src.utils import load_json
 from src.model_definition import build_model
+from src.train import train
+from src.utility_functions import load_json
 
 
 @pytest.mark.training

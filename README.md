@@ -8,38 +8,77 @@ In this assignment we will be transferring a small kaggle model to a professiona
 - git for version control.
 - poetry for dependency management.
 
-### How to run
-To run this code you need to have poetry and python3.11 installed. 
-You can install the packages by running the following commands:
-(this should be executed in the phishing-detection folder)
+# How to Run
+## Prerequisites
+- Poetry
+- Python 3.11
 
-- if the lock file is out of date:
-- ```poetry lock --no-update```
+## Installation
+Navigate to the main directory (model-training) and run:
+```sh
+# If the lock file is out of date
+poetry lock --no-update
 
-- ```poetry install```
-- ```poetry shell```
+# Install dependencies
+poetry install
 
-To retrieve the data and run the pipeline:
-(this should be executed in the remla-group10 folder)
-- ```dvc fetch```
-- ```dvc pull``` (may not work, in which case use the workaround below)
-- ```dvc repro```
+# Activate the virtual environment
+poetry shell
+```
 
-In case dvc pull does not work, fetch the 3 data files manually and run dvc repro:
-- ```dvc fetch data/raw/train.txt```
-- ```dvc fetch data/raw/test.txt```
-- ```dvc fetch data/raw/val.txt```
-- ```dvc repro```
+## Data Retrieval and Pipeline Execution
+Navigate to the remla-group10 folder and run:
+```sh
+dvc fetch
+dvc pull  # May not work, use the workaround below if needed
+dvc repro
+```
 
-To run the code quality metrics:
-(this should be executed in the phishing-detection folder)
-- ```pylint ./src ./tests```
-- ```bandit ./ -r```
+If dvc pull does not work, manually fetch the data files and run dvc repro:
+```sh
+dvc fetch data/raw/train.txt
+dvc fetch data/raw/test.txt
+dvc fetch data/raw/val.txt
+dvc repro
+```
 
-The project will be restructured in the future such that there is a single root folder from which all scripts can be executed from.
+## Code Quality Metrics
+Ensure code quality with `pylint`, `mypy`, `bandit`, and `pre-commit`.
 
-### How to run the tests 
-After entering the virtual environment run: ```pytest```.
-- ```pytest -m fast``` for quick tests, these are ran automatically in the CI pipeline and do not require dvc pull.
-- ```pytest -s -m manual``` for tests that require all data which can be downloaded through dvc pull or dvc repro.
-- ```pytest -s -m training``` for tests that require training on top of dvc pull or dvc repro, this is expected to take 30 minutes.
+### Install Mypy Stubs
+Install mypy stubs for your dependencies:
+```sh
+mypy --install-types
+```
+### Using Pre-commit
+The goal is to run Black, Pylint, Mypy, and Bandit with the configurations specified in pyproject.toml with one command. To do this, first install pre-commit:
+```sh
+pre-commit install
+```
+Then run the checks with:
+```sh
+pre-commit run --all-files
+```
+Pre-commit also runs automatically before every commit, which is what we want for this project.
+
+## Running Tests
+In the activated virtual environment, run:
+```sh
+pytest
+```
+
+**For specific tests:**
+- Quick tests (run automatically in CI, no DVC pull required):
+```sh
+pytest -m fast
+```
+
+- Tests requiring all data (requires dvc pull or dvc repro):
+```sh
+pytest -s -m manual
+```
+
+- Tests requiring training (expected to take 30 minutes):
+```sh
+pytest -s -m training
+```
