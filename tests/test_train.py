@@ -1,18 +1,19 @@
-import sys
 import os
+import sys
 
 from matplotlib import pyplot as plt
 
 # Set the path to the src directory
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
-from src import model_definition
-from src import preprocess
-from src import train
+import json
+
+import keras
 import numpy as np
 import pytest
 import yaml
-import json
-import keras
+
+from src import model_definition, preprocess, train
+
 
 @pytest.mark.fast
 def test_trained_model():
