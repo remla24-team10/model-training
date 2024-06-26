@@ -50,6 +50,8 @@ jobs:
         chmod 777 ./tests
         mkdir -p tests-results/unit-tests/${{ matrix.name }}
         chmod 777 tests-results/unit-tests/${{ matrix.name }}
+    - name: Run pre-commit hooks
+      run: pre-commit run --all-files
     - name: Run tests with coverage
       run: |
         poetry run pytest ./tests/ --cov=src --cov-report=xml:./tests/unittests.xml -m "fast" --junit-xml tests-results/unit-tests/${{ matrix.name }}/pytest.xml
