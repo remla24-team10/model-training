@@ -23,8 +23,12 @@ jobs:
         run: pipx install poetry || pip install poetry
       - name: Install dependencies
         run: poetry install
+      - name: mypy stubs installation
+        run: mypy --install-types
+      - name: install pre-commit
+        run: pre-commit install
       - name: Run pre-commit hooks
-        run: pre-commit run --all-files || (exit 1)
+        run: pre-commit run --all-files
       - name: Commit and push changes if any
         run: |
           if ! git diff-index --quiet HEAD; then
@@ -163,7 +167,6 @@ jobs:
 
       # only needed unless run with comment_mode: off
       pull-requests: write
-    if: always()
     steps:
       - name: Download Artifacts
         uses: actions/download-artifact@v4
