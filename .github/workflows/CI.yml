@@ -24,8 +24,7 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: Run pre-commit hooks
-        run: |
-          pre-commit run --all-files
+        run: pre-commit run --all-files || (exit 1)
       - name: Commit and push changes if any
         run: |
           if ! git diff-index --quiet HEAD; then
