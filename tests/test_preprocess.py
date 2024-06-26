@@ -1,11 +1,14 @@
-import sys
 import os
+import sys
+
 # Set the path to the src directory
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src'))) 
-from src import preprocess
+import json
+
 import numpy as np
 import pytest
-import json
+
+from src import preprocess
 
 
 @pytest.mark.fast

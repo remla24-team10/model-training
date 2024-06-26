@@ -2,20 +2,26 @@
 Provides functions to peform predictions.
 
 """
+
 import os
 import sys
+
 import numpy as np
 import seaborn as sns
-import utils
 from keras import Model
 from keras._tf_keras.keras.models import load_model
 from matplotlib import pyplot as plt
-from sklearn.metrics import classification_report, confusion_matrix,accuracy_score
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+from .utility_functions import save_data_as_text
 
 # Disable oneDNN custom operations
-os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 
-def predict_classes(model: Model, x_test: np.ndarray, threshold: float = 0.5) -> np.ndarray:
+
+def predict_classes(
+    model: Model, x_test: np.ndarray, threshold: float = 0.5
+) -> np.ndarray:
     """
     Predict class labels for samples in x_test.
 
@@ -37,7 +43,7 @@ def predict_classes(model: Model, x_test: np.ndarray, threshold: float = 0.5) ->
 
 def evaluate_results(y_test: np.ndarray, y_pred_binary: np.ndarray) -> dict:
     """
-    Evaluate the results of a binary classification task. 
+    Evaluate the results of a binary classification task.
     This function prints the classification report, confusion matrix, and accuracy score.
 
     Args:
@@ -48,23 +54,26 @@ def evaluate_results(y_test: np.ndarray, y_pred_binary: np.ndarray) -> dict:
         A dictionary containing the classification report, confusion matrix, and accuracy score.
     """
 
-    y_test=y_test.reshape(-1,1)
+    y_test = y_test.reshape(-1, 1)
 
     # Calculate classification report
     report = classification_report(y_test, y_pred_binary)
-    print('Classification Report:')
+    print("Classification Report:")
     print(report)
 
     # Calculate confusion matrix
     confusion_mat = confusion_matrix(y_test, y_pred_binary)
-    print('Confusion Matrix:', confusion_mat)
+    print("Confusion Matrix:", confusion_mat)
 
     # Calculate accuracy
     accuracy = accuracy_score(y_test, y_pred_binary)
-    print('Accuracy:', accuracy)
+    print("Accuracy:", accuracy)
 
-    return {'classification_report': report, 'confusion_matrix': confusion_mat,
-            'accuracy': accuracy}
+    return {
+        "classification_report": report,
+        "confusion_matrix": confusion_mat,
+        "accuracy": accuracy,
+    }
 
 
 def plot_confusion_matrix(confusion_mat: np.ndarray) -> plt.Figure:
@@ -79,10 +88,10 @@ def plot_confusion_matrix(confusion_mat: np.ndarray) -> plt.Figure:
 
     """
     plt.figure(figsize=(10, 7))
-    sns.heatmap(confusion_mat, annot=True, fmt='g')
-    plt.xlabel('Predicted')
-    plt.ylabel('True')
-    plt.title('Confusion Matrix')
+    sns.heatmap(confusion_mat, annot=True, fmt="g")
+    plt.xlabel("Predicted")
+    plt.ylabel("True")
+    plt.title("Confusion Matrix")
     return plt.gcf()
 
 
@@ -99,12 +108,13 @@ def main():
     y_test = np.load(os.path.join(path, "preprocess", "y_test.npy"))
     model = load_model(os.path.join("models", "trained_model.keras"))
 
-
     prediction = predict_classes(model, X_test)
     evaluation_results = evaluate_results(y_test, prediction)
-    utils.save_data_as_text(evaluation_results, os.path.join("reports", "results", "results.txt"))
+    save_data_as_text(
+        evaluation_results, os.path.join("reports", "results", "results.txt")
+    )
 
-    fig = plot_confusion_matrix(evaluation_results['confusion_matrix'])
+    fig = plot_confusion_matrix(evaluation_results["confusion_matrix"])
     fig.savefig(os.path.join("reports", "results", "confusion_matrix.pdf"))
 
 
