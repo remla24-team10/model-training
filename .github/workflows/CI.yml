@@ -23,18 +23,21 @@ jobs:
         run: pipx install poetry || pip install poetry
       - name: Install dependencies
         run: poetry install
-
       - name: Run pre-commit hooks
         run: |
-          pre-commit run --all-files || (
-            git config --global user.name "github-actions[bot]" &&
-            git config --global user.email "github-actions[bot]@users.noreply.github.com" &&
-            git add . &&
-            git commit -m "style: automatic code formatting" &&
+          pre-commit run --all-files
+      - name: Commit and push changes if any
+        run: |
+          if ! git diff-index --quiet HEAD; then
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git add .
+            git commit -m "style: automatic code formatting"
             git push
-          )
+          fi
 
   test:
+    needs: lint
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 10
