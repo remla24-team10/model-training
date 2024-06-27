@@ -1,4 +1,4 @@
-# REMLA project for group10
+# model-training
 
 ![Badge](https://gist.githubusercontent.com/Remi-Lejeune/6ff1588ffc7e3f2e26de1428ea3bde64/raw/90431bb13596c3bc38edae2d06b2ab3856a81efc/badge.svg)
 
@@ -8,13 +8,14 @@ In this assignment we will be transferring a small kaggle model to a professiona
 - git for version control.
 - poetry for dependency management.
 
-# How to Run
-## Prerequisites
+
+# 🛠️ Installation
+
+Prerequisites: 
 - Poetry
 - Python 3.11
 
-## Installation
-Navigate to the main directory (model-training) and run:
+Then, navigate to the main directory (model-training) and run:
 ```sh
 # If the lock file is out of date
 poetry lock --no-update
@@ -26,7 +27,7 @@ poetry install
 poetry shell
 ```
 
-## Data Retrieval and Pipeline Execution
+## 📂 Data Retrieval and Pipeline Execution
 Navigate to the remla-group10 folder and run:
 ```sh
 dvc fetch
@@ -42,7 +43,7 @@ dvc fetch data/raw/val.txt
 dvc repro
 ```
 
-## Code Quality Metrics
+## 📊 Code Quality Metrics
 Ensure code quality with `pylint`, `mypy`, `bandit`, and `pre-commit`.
 
 ### Install Mypy Stubs
@@ -61,7 +62,7 @@ pre-commit run --all-files
 ```
 Pre-commit also runs automatically before every commit, which is what we want for this project.
 
-## Running Tests
+## 🧪 Running Tests
 In the activated virtual environment, run:
 ```sh
 pytest
