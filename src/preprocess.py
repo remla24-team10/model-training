@@ -10,7 +10,7 @@ import sys
 import numpy as np
 from lib_ml_remla import preprocess_data, split_data
 
-from . import utility_functions as utils
+import utility_functions as utils
 
 # Disable oneDNN custom operations
 os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"

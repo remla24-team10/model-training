@@ -10,8 +10,8 @@ import numpy as np
 import yaml
 from keras._tf_keras.keras import Model
 
-from .model_definition import build_model
-from .utility_functions import load_json
+from model_definition import build_model
+from utility_functions import load_json
 
 # Disable oneDNN custom operations
 os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
