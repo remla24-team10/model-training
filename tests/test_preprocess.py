@@ -13,7 +13,7 @@ from src import preprocess
 
 @pytest.mark.fast
 def test_fake_data():
-    sys.argv = ["", "tests/testdata, "false"]
+    sys.argv = ["", "tests/testdata", "false"]
     preprocess.main()
     assert os.path.exists("tests/testdata/preprocess/X_train.npy") and os.path.exists("tests/testdata/preprocess/y_train.npy")
     assert os.path.exists("tests/testdata/preprocess/X_val.npy") and os.path.exists("tests/testdata/preprocess/y_val.npy")
