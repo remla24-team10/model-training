@@ -42,6 +42,12 @@ dvc fetch data/raw/val.txt
 dvc repro
 ```
 
+To show metrics run:
+```
+dvc metrics show
+```
+
+
 ### Public Sharing of the Model
 The model trained is shared publicly if desired. On default this is not enabled. To enable this, set the third argument for the dvc `train` step in the `dvc.yaml` file to `true`. To have this working, you do need access to the s3 bucket and this can be requested from the authors.
 
