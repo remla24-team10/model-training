@@ -20,7 +20,7 @@ from .utility_functions import load_json
 os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 
 
-def get_next_version(bucket_name: str, model_name: str) -> str:
+def get_next_version(bucket_name: str, model_name: str) -> str:  # pragma: no cover
     """Get the next version of the model from S3."""
     s3_client = boto3.client("s3")
     response = s3_client.list_objects_v2(Bucket=bucket_name, Prefix=f"{model_name}/")
@@ -45,7 +45,7 @@ def get_next_version(bucket_name: str, model_name: str) -> str:
     return next_version
 
 
-def get_latest_version(bucket_name: str, model_name: str) -> str:
+def get_latest_version(bucket_name: str, model_name: str) -> str:  # pragma: no cover
     """Get the latest version of the model from S3."""
     s3_client = boto3.client("s3")
     response = s3_client.list_objects_v2(Bucket=bucket_name, Prefix=f"{model_name}/")
@@ -70,7 +70,7 @@ def get_latest_version(bucket_name: str, model_name: str) -> str:
 
 def save_model_to_s3(
     model: Model, bucket_name: str, model_name: str, model_dir: str = "models"
-):
+):  # pragma: no cover
     """Save the model to S3."""
     # Get the next version dynamically
     version = get_next_version(bucket_name, model_name)
@@ -105,7 +105,7 @@ def save_model_to_s3(
 
 def download_model_from_s3(
     bucket_name: str, model_name: str, download_dir: str = "downloaded_models"
-):
+):  # pragma: no cover
     """Download the latest model from S3."""
     # Get the latest version dynamically
     version = get_latest_version(bucket_name, model_name)
@@ -181,7 +181,7 @@ def train(
     return model
 
 
-def main():
+def main():  # pragma: no cover
     """
     Train and saves the model to models/trained_model.keras.
 
