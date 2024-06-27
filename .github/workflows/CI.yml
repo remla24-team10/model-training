@@ -9,7 +9,38 @@ on:
       - main
 
 jobs:
+  lint:
+    name: Lint Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Poetry
+        run: pipx install poetry || pip install poetry
+      - name: Install dependencies
+        run: poetry install
+      - name: mypy stubs installation
+        run: poetry run mypy --install-types --non-interactive
+      - name: install pre-commit
+        run: poetry run pre-commit install
+      - name: Run pre-commit hooks
+        run: poetry run pre-commit run --all-files
+      - name: Commit and push changes if any
+        run: |
+          if ! git diff-index --quiet HEAD; then
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git add .
+            git commit -m "style: automatic code formatting"
+            git push
+          fi
+
   test:
+    needs: lint
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 10
@@ -79,9 +110,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - name: 'check'
-            python: '3.11'
-            os: 'ubuntu-latest'
+          # - name: 'check'
+          #   python: '3.11'
+          #   os: 'ubuntu-latest'
           - name: 'py311_ubuntu'
             python: '3.11'
             python_arch: 'x64'
@@ -136,7 +167,6 @@ jobs:
 
       # only needed unless run with comment_mode: off
       pull-requests: write
-    if: always()
     steps:
       - name: Download Artifacts
         uses: actions/download-artifact@v4
