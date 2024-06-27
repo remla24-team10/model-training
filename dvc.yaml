@@ -1,6 +1,6 @@
 stages:
   preprocess:
-    cmd : python ./src/preprocess.py data
+    cmd : python -m src.preprocess data
     deps:
       - src/preprocess.py
       - data/raw/train.txt
@@ -16,7 +16,7 @@ stages:
       - data/preprocess/char_index.json
   train:
     cmd:
-      - python ./src/train.py ./data ./src/params.yaml
+      - python -m src.train ./data ./src/params.yaml
     deps:
       - src/model_definition.py
       - src/train.py
@@ -28,16 +28,18 @@ stages:
     outs:
       - models/trained_model.keras
   test:
-    cmd: python ./src/predict.py data
+    cmd: python -m src.predict data
     deps:
       - src/predict.py
       - models/trained_model.keras
       - data/preprocess/X_test.npy
       - data/preprocess/y_test.npy
     outs:
-      - reports/results/results.txt
+      - reports/results/results.json
       - reports/results/confusion_matrix.pdf
       
+metrics:
+  - reports/results/results.json
 
 artifacts:
   phishing-detector:

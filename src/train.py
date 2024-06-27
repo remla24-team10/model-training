@@ -183,7 +183,7 @@ def train(
 
 def main():
     """
-    Train and save model.
+    Train and saves the model to models/trained_model.keras.
 
     Returns:
         None
