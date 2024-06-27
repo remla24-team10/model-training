@@ -24,9 +24,9 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: mypy stubs installation
-        run: mypy --install-types
+        run: poetry run mypy --install-types
       - name: install pre-commit
-        run: pre-commit install
+        run: poetry run pre-commit install
       - name: Run pre-commit hooks
         run: pre-commit run --all-files
       - name: Commit and push changes if any
