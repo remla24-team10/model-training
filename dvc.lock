@@ -157,7 +157,7 @@ stages:
       hash: md5
       md5: 6816e13f262ca23fd42135595829eec6
       size: 14172
-    - path: reports/results/results.txt
+    - path: reports/results/results.json
       hash: md5
       md5: 38e36ffe9f8bf7ecf02871feb15d4edb
       size: 706
