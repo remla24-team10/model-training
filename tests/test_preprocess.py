@@ -13,7 +13,7 @@ from src import preprocess
 
 @pytest.mark.fast
 def test_fake_data():
-    sys.argv = ["", "tests/testdata"]
+    sys.argv = ["", "tests/testdata, "false"]
     preprocess.main()
     assert os.path.exists("tests/testdata/preprocess/X_train.npy") and os.path.exists("tests/testdata/preprocess/y_train.npy")
     assert os.path.exists("tests/testdata/preprocess/X_val.npy") and os.path.exists("tests/testdata/preprocess/y_val.npy")
@@ -21,7 +21,7 @@ def test_fake_data():
 
 @pytest.mark.fast
 def test_invalid_path():
-    sys.argv = ["", "tests/testdata_invalid"]
+    sys.argv = ["", "tests/testdata_invalid", "false"]
     with pytest.raises(FileNotFoundError):
         preprocess.main()
         
@@ -42,7 +42,7 @@ def test_char_index():
     
 @pytest.mark.manual
 def test_real_data():
-    sys.argv = ["", "data"]
+    sys.argv = ["", "data", "false"]
     preprocess.main()
     assert os.path.exists("data/preprocess/X_train.npy") and os.path.exists("data/preprocess/y_train.npy") 
     assert os.path.exists("data/preprocess/X_val.npy") and os.path.exists("data/preprocess/y_val.npy")

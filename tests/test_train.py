@@ -18,7 +18,7 @@ from src import model_definition, preprocess, train
 @pytest.mark.fast
 def test_trained_model():
     # Load in the data
-    sys.argv = ["", "tests/testdata"]
+    sys.argv = ["", "tests/testdata", "false"]
     preprocess.main()
     X_train, y_train = np.load("tests/testdata/preprocess/X_train.npy"), np.load("tests/testdata/preprocess/y_train.npy")
     X_test, y_test = np.load("tests/testdata/preprocess/X_test.npy"), np.load("tests/testdata/preprocess/y_test.npy")
