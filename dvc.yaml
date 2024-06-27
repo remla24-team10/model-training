@@ -16,7 +16,7 @@ stages:
       - data/preprocess/char_index.json
   train:
     cmd:
-      - python -m src.train ./data ./src/params.yaml
+      - python -m src.train ./data ./src/params.yaml false
     deps:
       - src/model_definition.py
       - src/train.py
