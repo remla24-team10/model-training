@@ -1,20 +1,20 @@
-# Lib-ML 
+# model-training
 
 ![Badge](https://gist.githubusercontent.com/Remi-Lejeune/6ff1588ffc7e3f2e26de1428ea3bde64/raw/90431bb13596c3bc38edae2d06b2ab3856a81efc/badge.svg)
 
 
 In this assignment we have transferred a small kaggle model to a professional development environment. We will be using the following tools:
-- dvc for data version control and machine learning reproducibility.
-- git for version control.
-- poetry for dependency management.
+- [DVC](https://dvc.org) for data version control and machine learning reproducibility.
+- [Git](https://git-scm.com) for version control.
+- [Poetry](https://python-poetry.org) for dependency management.
 
-# How to Run
-## Prerequisites
+## 🛠️ Installation
+
+Prerequisites:
 - Poetry
 - Python 3.11
 
-## Installation
-Navigate to the main directory (model-training) and run:
+Then, navigate to the main directory (model-training) and run:
 ```sh
 # If the lock file is out of date
 poetry lock --no-update
@@ -26,7 +26,7 @@ poetry install
 poetry shell
 ```
 
-## Data Retrieval and Pipeline Execution
+## 📂 Data Retrieval and Pipeline Execution
 Navigate to the remla-group10 folder and run:
 ```sh
 dvc fetch
@@ -47,7 +47,7 @@ The model trained is shared publicly if desired. On default this is not enabled.
 
 The model currently saved however is openly available and can be downloaded from the s3 bucket. See how in `train.py`.
 
-## Code Quality Metrics
+## 📊 Code Quality Metrics
 Ensure code quality with `pylint`, `mypy`, `bandit`, and `pre-commit`.
 
 ### Install Mypy Stubs
@@ -66,7 +66,7 @@ pre-commit run --all-files
 ```
 Pre-commit also runs automatically before every commit, which is what we want for this project.
 
-## Running Tests
+## 🧪 Running Tests
 In the activated virtual environment, run:
 ```sh
 pytest
@@ -87,6 +87,6 @@ pytest -s -m manual
 ```sh
 pytest -s -m training
 ```
-### Notes on the project structure
+## 📝 Notes on the project structure
 - The project is structured in a way that the data is stored in the data/raw folder. This is the data that is used for training and testing. The data is not stored in the repository, but is stored in a dvc remote. The data is fetched from the remote using the dvc fetch command. The data is then processed and stored in the data/processed folder. The processed data is used for training and testing. 
 - The Python source code is split up in the src folder. Every stage of the pipeline is stored in a separate file to keep the code clean and maintainable. The code is tested using the pytest framework. The tests are stored in the tests folder. The tests are split up in fast tests and manual tests. The fast tests are ran automatically in the CI pipeline and do not require dvc pull. The manual tests require all data and can be ran using the dvc pull command. The training tests require training on top of the data and can be ran using the dvc pull command.
