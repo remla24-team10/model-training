@@ -28,7 +28,7 @@ jobs:
       - name: install pre-commit
         run: poetry run pre-commit install
       - name: Run pre-commit hooks
-        run: pre-commit run --all-files
+        run: poetry run pre-commit run --all-files
       - name: Commit and push changes if any
         run: |
           if ! git diff-index --quiet HEAD; then
@@ -110,9 +110,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - name: 'check'
-            python: '3.11'
-            os: 'ubuntu-latest'
+          # - name: 'check'
+          #   python: '3.11'
+          #   os: 'ubuntu-latest'
           - name: 'py311_ubuntu'
             python: '3.11'
             python_arch: 'x64'
