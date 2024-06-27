@@ -16,7 +16,7 @@ from src import model_definition, predict, preprocess, train
 @pytest.mark.fast
 def test_integration_small_sample():
     # Load in the data
-    sys.argv = ["", "tests/testdata", "false"]
+    sys.argv = ["", "tests/testdata"]
     preprocess.main()
     X_train, y_train = np.load("tests/testdata/preprocess/X_train.npy"), np.load("tests/testdata/preprocess/y_train.npy")
     X_test, y_test = np.load("tests/testdata/preprocess/X_test.npy"), np.load("tests/testdata/preprocess/y_test.npy")
@@ -39,7 +39,7 @@ def test_integration_small_sample():
 
 @pytest.mark.dev
 def test_integration():
-    sys.argv = ["", "data", "false"]
+    sys.argv = ["", "data"]
     preprocess.main()
     assert os.path.exists("data/preprocess/X_train.npy") and os.path.exists("data/preprocess/y_train.npy") 
     assert os.path.exists("data/preprocess/X_val.npy") and os.path.exists("data/preprocess/y_val.npy")

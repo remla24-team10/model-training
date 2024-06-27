@@ -29,7 +29,7 @@ def test_uniqueness():
 
 @pytest.mark.fast
 def test_uniqueness_fake_data():
-    sys.argv = ["", "tests/testdata", "false"]
+    sys.argv = ["", "tests/testdata"]
     preprocess.main()
     X_train = np.load("tests/testdata/preprocess/X_train.npy")
     X_val = np.load("tests/testdata/preprocess/X_val.npy")
