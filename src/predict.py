@@ -3,17 +3,16 @@ Provides functions to peform predictions.
 
 """
 
+import json
 import os
 import sys
-import json
+
 import numpy as np
 import seaborn as sns
 from keras import Model
 from keras._tf_keras.keras.models import load_model
 from matplotlib import pyplot as plt
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
-
-from .utility_functions import save_data_as_text
 
 # Disable oneDNN custom operations
 os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
@@ -58,7 +57,7 @@ def evaluate_results(y_test: np.ndarray, y_pred_binary: np.ndarray) -> dict:
 
     # Calculate classification report
     report = classification_report(y_test, y_pred_binary, output_dict=True)
-    print('Classification Report:')
+    print("Classification Report:")
     print(report)
 
     # Calculate confusion matrix
@@ -95,7 +94,7 @@ def plot_confusion_matrix(confusion_mat: np.ndarray) -> plt.Figure:
     return plt.gcf()
 
 
-def main(): # pragma: no cover
+def main():  # pragma: no cover
     """
     Evaluate model and save plots
 
@@ -111,10 +110,12 @@ def main(): # pragma: no cover
     prediction = predict_classes(model, X_test)
     evaluation_results = evaluate_results(y_test, prediction)
     # dump evaluation results as a json file
-    json_object = json.dumps(evaluation_results['classification_report'], indent=4)
-    with open(os.path.join("reports", "results", "results.json"), 'w') as f:
+    json_object = json.dumps(evaluation_results["classification_report"], indent=4)
+    with open(
+        os.path.join("reports", "results", "results.json"), "w", encoding="utf-8"
+    ) as f:
         f.write(json_object)
-    fig = plot_confusion_matrix(evaluation_results['confusion_matrix'])
+    fig = plot_confusion_matrix(evaluation_results["confusion_matrix"])
     fig.savefig(os.path.join("reports", "results", "confusion_matrix.pdf"))
 
 
