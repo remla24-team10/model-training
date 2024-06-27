@@ -10,7 +10,7 @@ import sys
 import numpy as np
 from lib_ml_remla import preprocess_data, split_data
 
-import utility_functions as utils
+from .utility_functions import load_data_from_text, save_json
 
 # Disable oneDNN custom operations
 os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
@@ -26,11 +26,11 @@ def main():
     path = sys.argv[1]
 
     # Load data from text files
-    train = utils.load_data_from_text(os.path.join(path, "raw", "train.txt"))
+    train = load_data_from_text(os.path.join(path, "raw", "train.txt"))
     train = [line.strip() for line in train]
-    test = utils.load_data_from_text(os.path.join(path, "raw", "test.txt"))
+    test = load_data_from_text(os.path.join(path, "raw", "test.txt"))
     test = [line.strip() for line in test]
-    val = utils.load_data_from_text(os.path.join(path, "raw", "val.txt"))
+    val = load_data_from_text(os.path.join(path, "raw", "val.txt"))
     val = [line.strip() for line in val]
 
     raw_X_train, raw_y_train, raw_X_val, raw_y_val, raw_X_test, raw_y_test = split_data(
@@ -49,7 +49,7 @@ def main():
     np.save(os.path.join(path, "preprocess", "y_val.npy"), y_val)
     np.save(os.path.join(path, "preprocess", "X_test.npy"), X_test)
     np.save(os.path.join(path, "preprocess", "y_test.npy"), y_test)
-    utils.save_json(char_index, os.path.join(path, "preprocess", "char_index.json"))
+    save_json(char_index, os.path.join(path, "preprocess", "char_index.json"))
 
     if not os.path.exists(os.path.join(path, "model")):
         os.makedirs(os.path.join(path, "model"))

@@ -13,7 +13,7 @@ from keras._tf_keras.keras.models import load_model
 from matplotlib import pyplot as plt
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
-from utility_functions import save_data_as_text
+from .utility_functions import save_data_as_text
 
 # Disable oneDNN custom operations
 os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
