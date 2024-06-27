@@ -37,7 +37,7 @@ stages:
     outs:
       - reports/results/results.json
       - reports/results/confusion_matrix.pdf
-      
+
 metrics:
   - reports/results/results.json
 
@@ -47,4 +47,3 @@ artifacts:
     type: model
     labels:
       - phishing-detector
-    
