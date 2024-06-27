@@ -1,5 +1,5 @@
-batch_test: 5000
-batch_train: 5000
+batch_test: 1000
+batch_train: 1000
 categories:
 - phishing
 - legitimate

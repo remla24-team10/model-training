@@ -35,9 +35,11 @@ stages:
       - data/preprocess/X_test.npy
       - data/preprocess/y_test.npy
     outs:
-      - reports/results/results.txt
+      - reports/results/results.json
       - reports/results/confusion_matrix.pdf
       
+metrics:
+  - reports/results/results.json
 
 artifacts:
   phishing-detector:
