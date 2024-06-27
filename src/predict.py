@@ -87,7 +87,7 @@ def plot_confusion_matrix(confusion_mat: np.ndarray) -> plt.Figure:
     return plt.gcf()
 
 
-def main():
+def main(): # pragma: no cover
     """
     Evaluate model and save plots
 
